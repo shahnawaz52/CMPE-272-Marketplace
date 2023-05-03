@@ -102,9 +102,13 @@
                     // Set session variables to mark admin as logged in
                     $_SESSION['admin_loggedin'] = true;
 					$_SESSION['loggedin'] = true;
-                    
                     // Redirect to user list page
-                    header('Location: userlist.php');
+					if(isset($_SESSION['prev_page'])) {
+						header('Location: '.$_SESSION['prev_page']);
+						exit;
+					} else {
+                    	header('Location: userlist.php');
+					}
                     exit;
                 } else {
                     // Display error message for invalid login credentials

@@ -89,10 +89,11 @@ include('connect.php');
 				//   include('connect.php');
 				  		$product = $_GET['product_name'];
 						if($product) {
-
-							store_visited_products($product);
+							// store_visited_product_id($_GET['product_id']);
+							store_visited_products($product, $_GET['product_id']);
 						}
-						// echo "<script>console.log('$product')</script>";
+						// $cookie_name = "VISITED_PRODUCTS";
+						// echo "<script>console.log($_COOKIE[$cookie_name])</script>";
 						$select_query = "SELECT * FROM `products`";
 						$result_query = mysqli_query($connection, $select_query);
 						// $row = mysqli_fetch_assoc($result_query);

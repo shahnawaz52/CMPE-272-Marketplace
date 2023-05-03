@@ -26,7 +26,6 @@
             }
         }
 
-
     }
 ?>
 
@@ -95,7 +94,11 @@
         <div class="block">
           <div class="row justify-content-center">
 
-
+		<?php
+		session_start();
+		$_SESSION['prev_page'] = $_SERVER['REQUEST_URI'];
+			if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+				?>
             <div class="col-md-8 col-lg-8 pb-4">
 
               <form action="" method="post" enctype="multipart/form-data">
@@ -127,6 +130,11 @@
               </form>
 
             </div>
+			<?php
+			} else {
+				echo "<h3 class='text-center mt-5'>Please <a href='login.php'>login</a> to insert a product</h3>";
+			}
+			?>
 
           </div>
 

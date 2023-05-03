@@ -1,18 +1,54 @@
 <?php
-	function store_visited_products($productname) {
+	function store_visited_products($productname, $product_id) {
 		$cookie_name = "VISITED_PRODUCTS";
+		$cookie_product_id = "VISITED_PRODUCT_ID";
 		if(!isset($_COOKIE[$cookie_name])) {
 			$value = array();
+			$visited_products = array();
 		}
 		else {
 			// Cookies is already set. Just read its value
 			$value = json_decode($_COOKIE[$cookie_name]);
+			$visited_products = json_decode($_COOKIE[$cookie_product_id], true);
+		}
+
+		if (array_key_exists($product_id, $visited_products)) {
+			$visited_products[$product_id]++;
+		} else {
+			$visited_products[$product_id] = 1;
 		}
 
 		// Setting the cookie
 		array_push($value, $productname);
 		$value = json_encode($value);
+		// print_r($value);
 		setcookie($cookie_name, $value, time() + (86400 * 30), "/");
+		$visited_products_json = json_encode($visited_products);
+		// print_r($visited_products_json);
+		setcookie($cookie_product_id, $visited_products_json, time() + (86400 * 30), "/");
+	}
+
+	function store_visited_product_id($product_id) {
+		$cookie_name = "VISITED_PRODUCT_ID";
+		if(!isset($_COOKIE[$cookie_name])) {
+			$visited_products = array();
+		}
+		else {
+			// Cookie is already set. Just read its value
+			$visited_products = json_decode($_COOKIE[$cookie_name], true);
+		}
+	
+		// Increase the visit count of the product
+		if (array_key_exists($product_id, $visited_products)) {
+			$visited_products[$product_id]++;
+		} else {
+			$visited_products[$product_id] = 1;
+		}
+	
+		// Setting the cookie
+		$visited_products_json = json_encode($visited_products);
+		// print_r($visited_products_json);
+		setcookie($cookie_name, $visited_products_json, time() + (86400 * 30), "/");
 	}
 
 	function drawProductTable($array) {

@@ -2,7 +2,8 @@
 	include('connect.php');
 	include('tracking_logic.php');
 	include('prod_tracking_logic.php');
-	store_visited_pages("Shop");
+	// store_visited_pages("Shop");
+
 
 ?>
 
@@ -78,7 +79,7 @@
 						<li class="nav-item ">
 							<a class="nav-link" href="index.php">Home</a>
 						</li>
-						<li class="active"><a class="nav-link" href="shop.php">Shop</a></li>
+						<li><a class="nav-link" href="shop.php">Shop</a></li>
 						<li><a class="nav-link" href="about.php">About us</a></li>
 						<li><a class="nav-link" href="services.php">Services</a></li>
 						<li><a class="nav-link" href="blog.php">Blog</a></li>
@@ -104,25 +105,28 @@
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
-						<div>
+						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Shop</h1>
+								<h1>Most five visited products</h1>
 							</div>
-							<div>
-                				<a href="product_insert.php" class="btn btn-primary-hover-outline">Insert Product</a>
+							<div class="">
+                				<!-- <a href="product_insert.php" class="btn btn-primary-hover-outline">Insert Product</a> -->
 								<!-- <li class="d-flex justify-content-end"> -->
-								<a class="btn btn-primary-hover-outline" href="#" data-toggle="modal" data-target="#producttrackingModal">Visited Product Tracking</a>
+								<!-- <a class="btn btn-primary-hover-outline" href="#" data-toggle="modal" data-target="#producttrackingModal">Visited Product Tracking</a> -->
 								<!-- </li> -->
-								<a href="most5_visited.php" class="btn btn-primary-hover-outline">Most five visited products<sup style="color: firebrick;">hot</sup></a>
+								<!-- <a href="most5_visited.php" class="btn btn-primary-hover-outline">Most five visited products</a> -->
             				</div>
 						</div>
-						<div>
+						<div class="col-lg-7">
 							
 						</div>
 					</div>
 				</div>
 			</div>
-		<!-- End Hero Section -->	
+		<!-- End Hero Section -->
+
+
+		
 
 		<div class="untree_co-section product-section before-footer-section">
 		    <div class="container">
@@ -131,40 +135,157 @@
 						$select_query = "SELECT * FROM `products`";
 						$result_query = mysqli_query($connection, $select_query);
 						// print_r($_COOKIE['VISITED_PRODUCT_ID']);
-						// $product_visited = $_COOKIE['VISITED_PRODUCT_ID'];
-						// $product_visited_array = json_decode($product_visited, true);
-						// arsort($product_visited_array);
-						// $product_visited_encode = json_encode($product_visited_array);
-						// print_r($product_visited_array);
-						// $output = array_slice($product_visited_array, 0, 5, true);
-						// print_r($output);
-						// $retval = mysqli_query($connection, $sql);
+                        if(isset($_COOKIE['VISITED_PRODUCT_ID'])) {
+                            $product_visited = $_COOKIE['VISITED_PRODUCT_ID'];
+                            $product_visited_array = json_decode($product_visited, true);
+                            arsort($product_visited_array);
+                            // $product_visited_encode = json_encode($product_visited_array);
+                            // print_r($product_visited_array);
+                            $output = array_slice($product_visited_array, 0, 5, true);
+                            
+                            // print_r($output);
+                            // $retval = mysqli_query($connection, $sql);
 
-						// while($row = mysqli_fetch_assoc($result_query)) {
-						// 	if(array_key_exists($row['prodcut_id'], $output)) {
-						// 		print_r($output);
-						// 	}
-						// }
-						
-						// echo $row['product_name'];
-						while($row = mysqli_fetch_assoc($result_query)) {
-							$product_id = $row['prodcut_id'];
-							$product_name = $row['product_name'];
-							$product_price = $row['product_price'];
-							$product_image = $row['product_image'];
-							$product_description = $row['product_description'];
+                            // echo $row['product_name'];
+                            while($row = mysqli_fetch_assoc($result_query)) {
 
-							echo "<div class='col-12 col-md-4 col-lg-3 mb-5'>
-							<a class='product-item' href='product1.php?product_id=$product_id&product_name=$product_name'>
-								<img src='images/$product_image' class='img-fluid product-thumbnail'>
-								<h3 class='product-title'>$product_name</h3>
-								<strong class='product-price'>$$product_price</strong>
-	
-								<a href='shop.php?add_to_cart=$product_id' class='btn btn-primary-hover-outline mt-2'>Add</a>
-							</a>
-						</div> ";
-						}
+                                if(array_key_exists($row['prodcut_id'], $output)) {
+                                    $product_id = $row['prodcut_id'];
+                                    $product_name = $row['product_name'];
+                                    $product_price = $row['product_price'];
+                                    $product_image = $row['product_image'];
+                                    $product_description = $row['product_description'];
+                                    echo "<div class='col-12 col-md-4 col-lg-3 mb-5'>
+                                    <a class='product-item' href='product1.php?product_id=$product_id&product_name=$product_name'>
+                                        <img src='images/$product_image' class='img-fluid product-thumbnail'>
+                                        <h3 class='product-title'>$product_name</h3>
+                                        <strong class='product-price'>$$product_price</strong>
+            
+                                        <a href='shop.php?add_to_cart=$product_id' class='btn btn-primary-hover-outline mt-2'>Add</a>
+                                    </a>
+                                </div> ";
+                                }
+                            }
+                        }
 					?>
+
+		      		<!-- Start Column 1 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="product1.php">
+							<img src="images/product-3.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div>  -->
+					<!-- End Column 1 -->
+
+					<!-- Start Column -->
+
+					<!-- End Column -->
+						
+					<!-- Start Column 2 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="product2.php">
+						<input type="hidden" name="current_product" value="Ergonomic Chair">
+							<img src="images/product-1.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Ergonomic Chair</h3>
+							<strong class="product-price">$50.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div>  -->
+					<!-- End Column 2 -->
+
+					<!-- Start Column 3 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="images/product-2.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Kruzo Aero Chair</h3>
+							<strong class="product-price">$78.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div> -->
+					<!-- End Column 3 -->
+
+					<!-- Start Column 4 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="images/product-3.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Ergonomic Chair</h3>
+							<strong class="product-price">$43.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div> -->
+					<!-- End Column 4 -->
+
+
+					<!-- Start Column 1 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="images/product-3.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div>  -->
+					<!-- End Column 1 -->
+						
+					<!-- Start Column 2 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="images/product-1.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Nordic Chair</h3>
+							<strong class="product-price">$50.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div>  -->
+					<!-- End Column 2 -->
+
+					<!-- Start Column 3 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="images/product-2.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Kruzo Aero Chair</h3>
+							<strong class="product-price">$78.00</strong>
+
+							<span class="icon-cross">
+								<button class="addtocart">+</button>
+							</span>
+						</a>
+					</div> -->
+					<!-- End Column 3 -->
+
+					<!-- Start Column 4 -->
+					<!-- <div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="#">
+							<img src="images/product-3.png" class="img-fluid product-thumbnail">
+							<h3 class="product-title">Ergonomic Chair</h3>
+							<strong class="product-price">$43.00</strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div> -->
+					<!-- End Column 4 -->
 
 		      	</div>
 		    </div>
